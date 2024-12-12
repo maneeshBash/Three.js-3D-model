@@ -17,12 +17,23 @@ const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+//add Orbitcontrols (enable camera movement)
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
 // Render Loop
 function animate() {
   requestAnimationFrame(animate);
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
+  controls.update();
   renderer.render(scene, camera);
 }
 animate();
+
+//Resize Handling
+window.addEventListener('resize', () =>{
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
 })
+});
